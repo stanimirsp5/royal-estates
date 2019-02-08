@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar></ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="refreshAll($event)">
+      <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-card>
+    <img src= {{estate.image}}>
+      <ion-card-content>
+
+        <ion-col text-right>
+            <button ion-button small icon-left outline (click)="toggleSave()" *ngIf="!isSaveing">
+                <ion-icon name="bookmark"></ion-icon>
+                SAVE TO MY ESTATES
+            </button>
+            <button ion-button small icon-only (click)="toggleSave()" *ngIf="isSaveing">
+                <ion-icon name="star"></ion-icon>
+            </button>
+        </ion-col>        
+        <!-- Grid start -->
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                {{estate.type}}
+                </ion-col>
+                <ion-col>
+                Area: {{estate.area}} m²
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                <ion-badge>{{estate.bedrooms}}</ion-badge> Bedrooms
+                </ion-col>
+                <ion-col>
+                Price: {{estate.price | currency:'USD':'symbol-narrow':'4.2-2'}}
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <p>{{estate.address}}</p>
+      </ion-card-content>
+  </ion-card>
+</ion-content>

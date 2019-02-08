@@ -1,0 +1,74 @@
+<ion-header>
+    <ion-navbar></ion-navbar>
+    <ion-toolbar>
+        <ion-segment secondary [(ngModel)]="locationFilter">
+            <ion-segment-button value="location">
+                Region
+            </ion-segment-button>
+            <ion-segment-button value="all">
+                All
+            </ion-segment-button>
+
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-content>
+            <ion-item>
+                <ion-label>Filter By Type: {{value}}</ion-label>
+                <ion-select [(ngModel)]="typeFilter" (ionChange)="trasFilter(typeFilter, toggleFlag)">
+                    <ion-option value="Apartment">Apartment</ion-option>
+                    <ion-option value="House">House</ion-option>
+                    <ion-option value="Studio">Studio</ion-option>
+                </ion-select>
+                <ion-toggle [(ngModel)]="toggleFlag" (ionChange)="trasFilter(typeFilter, toggleFlag)" end color=“secondary”
+                    checked=“false”></ion-toggle>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+
+    <div [ngSwitch]="locationFilter">
+        <ion-list *ngSwitchCase="'location'">
+            <ion-item-group *ngFor="let region of estates">
+
+                <ng-container *ngIf='selectedPublicRegion == region.regionName'>
+                    <ion-item-divider color="secondary">{{region.regionName}}</ion-item-divider>
+                    <button ion-item *ngFor="let estate of region.regionEstates" (click)="itemTapped($event, estate)">
+
+                        <ion-thumbnail item-start>
+                            <img src={{estate.image}}>
+                        </ion-thumbnail>
+
+                        <h2>Ref No. {{estate.refNumber}}</h2>
+                        <p>{{estate.type}}, {{estate.bedrooms}} Bedrooms</p>
+                        <p>{{selectedPublicLocation.location.name}}, {{estate.region}}</p>
+                        <a style="position: absolute;left: 81%;top: 41%;">VIEW</a>
+                    </button>
+                </ng-container>
+
+            </ion-item-group>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'all'">
+            <ion-item-group *ngFor="let region of estates">
+
+                <ion-item-divider color="secondary">{{region.regionName}}</ion-item-divider>
+                <button ion-item *ngFor="let estate of region.regionEstates" (click)="itemTapped($event, estate)">
+
+                    <ion-thumbnail item-start>
+                        <img src={{estate.image}}>
+                    </ion-thumbnail>
+
+                    <h2>Ref No. {{estate.refNumber}}</h2>
+                    <p>{{estate.type}}, {{estate.bedrooms}} Bedrooms</p>
+                    <p>{{selectedPublicLocation.location.name}}, {{estate.region}}</p>
+                    <a style="position: absolute;left: 81%;top: 41%;">VIEW</a>
+                </button>
+
+            </ion-item-group>
+        </ion-list>
+    </div>
+
+</ion-content>

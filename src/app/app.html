@@ -1,0 +1,24 @@
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>My Estates</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <ion-list-header>Navigate</ion-list-header>
+      <button menuClose ion-item (click)="goHome()">Home</button>
+      <button menuClose ion-item (click)="goToLocations()">Find a Location</button>
+    </ion-list>
+    <ion-list>
+      <ion-list-header>Favorites</ion-list-header>
+      <button menuClose ion-item *ngFor="let fav of favoriteEstates" (click)="goToEstate(fav)">
+        {{fav.estate.refNumber}}
+      </button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

@@ -1,0 +1,28 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Estates</ion-title>
+  </ion-navbar>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Search" [(ngModel)]="queryText" (ionInput)="updateEstates()">
+    </ion-searchbar>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-item-group *ngFor="let region of estates">
+    <ion-item-divider color="secondary">{{region.regionName}}</ion-item-divider>
+    <button ion-item *ngFor="let estate of region.regionEstates" (click)="itemTapped($event, estate)">
+
+      <ion-thumbnail item-start>
+        <img src={{estate.image}}>
+      </ion-thumbnail>
+
+      <h2>Ref No. {{estate.refNumber}}</h2>
+      <p>{{estate.type}}, {{estate.bedrooms}} Bedrooms</p>
+      <p>{{publicSelectedLocation.name}}, {{estate.region}}</p>
+      <a style="position: absolute;left: 81%;top: 41%;">VIEW</a>
+    </button>
+  </ion-item-group>
+</ion-content>
